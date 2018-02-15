@@ -1,3 +1,7 @@
+install:
+`git clone https://github.com/jwdeitch/Intelliemacs.git ~/.emacs.d`
+
+
 ```
 ⌘ + = => Focus window up
 ⌘ + - => Focus window down
