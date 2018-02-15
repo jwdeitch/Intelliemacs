@@ -135,3 +135,6 @@ there's a region, all lines that region covers will be duplicated."
 (global-set-key (kbd "s-r") 'mc/mark-next-like-this)
 
 (setq jit-lock-defer-time 0.05)
+(setq insert-directory-program "gls" dired-use-ls-dired t)
+
+
