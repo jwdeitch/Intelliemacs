@@ -8,7 +8,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(inhibit-startup-screen t)
- '(package-selected-packages (quote (multiple-cursors drag-stuff bind-key))))
+ '(package-selected-packages (quote (fiplr multiple-cursors drag-stuff bind-key))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -33,7 +33,7 @@
 (define-key drag-stuff-mode-map (drag-stuff--kbd 'up) 'drag-stuff-up)
 (define-key drag-stuff-mode-map (drag-stuff--kbd 'down) 'drag-stuff-down)
 
-(setq package-list '(drag-stuff bind-key multiple-cursors))
+(setq package-list '(drag-stuff bind-key fiplr multiple-cursors))
 ; fetch the list of packages available 
 (unless package-archive-contents
   (package-refresh-contents))
@@ -101,7 +101,6 @@ there's a region, all lines that region covers will be duplicated."
         (setq end (point)))
       (goto-char (+ origin (* (length region) arg) arg)))))
 
-
 (defun comment-or-uncomment-region-or-line ()
     "Comments or uncomments the region or the current line if there's no active region."
     (interactive)
@@ -116,6 +115,7 @@ there's a region, all lines that region covers will be duplicated."
 (require 'bind-key)
 (bind-key* "s-d" 'duplicate-current-line-or-region)
 (bind-key* "s-e" 'move-end-of-line)
+(bind-key* "s-o" 'fiplr-find-file)
 (bind-key* "s-q" 'move-beginning-of-line)
 (bind-key* "s-w" 'kill-buffer-and-window)
 (bind-key* "s-/" 'comment-or-uncomment-region-or-line)
@@ -127,6 +127,8 @@ there's a region, all lines that region covers will be duplicated."
 (global-set-key (kbd "s-=") 'windmove-up)
 (global-set-key (kbd "s--") 'windmove-down)
 
+(global-hl-line-mode 1)
+(set-face-background 'hl-line "#fffae3")
 
 (require 'multiple-cursors)
 (global-set-key (kbd "<s-w>") 'kill-buffer-and-window)
