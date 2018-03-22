@@ -8,13 +8,19 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(inhibit-startup-screen t)
- '(package-selected-packages (quote (fiplr multiple-cursors drag-stuff bind-key))))
+ '(package-selected-packages
+   (quote
+    (emacsql-psql pg fzf fiplr multiple-cursors drag-stuff bind-key))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(delete-selection-mode 1)
+(tool-bar-mode -1)
+
 
 
 (require 'package)
@@ -119,8 +125,8 @@ there's a region, all lines that region covers will be duplicated."
 (bind-key* "s-q" 'move-beginning-of-line)
 (bind-key* "s-w" 'kill-buffer-and-window)
 (bind-key* "s-/" 'comment-or-uncomment-region-or-line)
-(bind-key* "<s-right>" 'forward-word)
-(bind-key* "<s-left>" 'backward-word)
+;; (bind-key* "<s-right>" 'forward-word)
+;; (bind-key* "<s-left>" 'backward-word)
 
 (global-set-key (kbd "s-[") 'windmove-left)
 (global-set-key (kbd "s-]") 'windmove-right)
@@ -137,4 +143,16 @@ there's a region, all lines that region covers will be duplicated."
 (setq jit-lock-defer-time 0.05)
 (setq insert-directory-program "gls" dired-use-ls-dired t)
 
+(put 'dired-find-alternate-file 'disabled nil)
 
+(add-hook 'dired-mode-hook
+ (lambda ()
+  (define-key dired-mode-map (kbd "^")
+    (lambda () (interactive) (find-alternate-file "..")))
+  ; was dired-up-directory
+  ))
+
+(global-set-key (kbd "<s-right>") 'next-buffer)
+(global-set-key (kbd "<s-left>") 'previous-buffer)
+
+;;(define-key dired-mode-map [mouse-1] 'dired-find-file)
